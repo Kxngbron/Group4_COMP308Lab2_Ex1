@@ -56,3 +56,31 @@ body { margin: 0; font-family: system-ui, Arial, sans-serif; background: #0b1020
 .pill { padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.14); font-size: .85rem; }
 .ok { border-color: rgba(120,255,180,.6); }
 .bad { border-color: rgba(255,120,120,.6); }
+
+.link {
+  color: #e7e9ee;
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+}
+.link:hover { background: rgba(255,255,255,.10); }
+
+.auth-wrapper {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 30px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.04);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.35);
+}

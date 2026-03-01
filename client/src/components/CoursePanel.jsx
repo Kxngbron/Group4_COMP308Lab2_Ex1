@@ -82,7 +82,7 @@ export default function CoursePanel({ refreshKey }) {
             value={courseInput[k]}
             onChange={(e) => setCourseInput({ ...courseInput, [k]: e.target.value })}
           />
-        ))}
+        ))}<br></br><br></br>
         <button className="btn primary" onClick={() => addCourse({ variables: { input: courseInput } })}>
           Add Course
         </button>
@@ -97,13 +97,13 @@ export default function CoursePanel({ refreshKey }) {
               {c.courseCode} - {c.section} ({c.semester})
             </option>
           ))}
-        </select>
+        </select><br></br>
         <input
           className="input"
           placeholder="New section (ex: 002)"
           value={updateData.section}
           onChange={(e) => setUpdateData({ ...updateData, section: e.target.value })}
-        />
+        /><br></br><br></br>
         <button
           className="btn"
           onClick={() =>
@@ -123,7 +123,7 @@ export default function CoursePanel({ refreshKey }) {
               {c.courseCode} - {c.courseName} ({c.section})
             </option>
           ))}
-        </select>
+        </select><br></br><br></br>
 
         <div className="row">
           <button className="btn primary" onClick={() => enroll({ variables: { courseId: selectedCourseId } })}>
@@ -135,10 +135,10 @@ export default function CoursePanel({ refreshKey }) {
           <button className="btn danger" onClick={() => deleteCourse({ variables: { courseId: selectedCourseId } })}>
             Delete Course
           </button>
-        </div>
+        </div><br></br><br></br>
 
         <div className="small">
-          <b>My Courses:</b> {myCourses.length ? myCourses.map((c) => c.courseCode).join(", ") : "None"}
+          <h3>My Courses:</h3> {myCourses.length ? myCourses.map((c) => c.courseCode).join(", ") : "None"}
         </div>
       </div>
 

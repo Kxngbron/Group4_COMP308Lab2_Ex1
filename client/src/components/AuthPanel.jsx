@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client/react";
 import { LOGIN, SIGNUP } from "../graphql/mutations.js";
 import { setToken } from "../utils/auth.js";
+import { useNavigate } from "react-router-dom";
 
 const emptySignup = {
   studentNumber: "",
@@ -15,17 +16,18 @@ const emptySignup = {
   program: ""
 };
 
-export default function AuthPanel({ onAuth }) {
-  const [mode, setMode] = useState("login"); // login | signup
+export default function AuthPanel({ onAuth, defaultMode = "login" }) {
+  const [mode, setMode] = useState(defaultMode);
   const [loginData, setLoginData] = useState({ studentNumber: "", password: "" });
   const [signupData, setSignupData] = useState(emptySignup);
   const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
 
   const [doLogin, { loading: loginLoading }] = useMutation(LOGIN, {
     onCompleted: (data) => {
       setToken(data.login.token);
-      setMsg("✅ Logged in!");
       onAuth();
+      navigate("/");  
     },
     onError: (e) => setMsg(`❌ ${e.message}`)
   });
@@ -33,8 +35,8 @@ export default function AuthPanel({ onAuth }) {
   const [doSignup, { loading: signupLoading }] = useMutation(SIGNUP, {
     onCompleted: (data) => {
       setToken(data.signup.token);
-      setMsg("✅ Signed up & logged in!");
       onAuth();
+      navigate("/");   // 👈 redirect
     },
     onError: (e) => setMsg(`${e.message}`)
   });

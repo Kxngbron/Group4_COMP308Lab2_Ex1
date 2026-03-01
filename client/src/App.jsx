@@ -1,8 +1,13 @@
 import React, { useMemo, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+
 import Navbar from "./components/Navbar.jsx";
-import AuthPanel from "./components/AuthPanel.jsx";
-import CoursePanel from "./components/CoursePanel.jsx";
-import ListsPanel from "./components/ListsPanel.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+
+import LoginPage from "./pages/LoginPage.jsx";
+import DashboardPage from "./pages/DashboardPage.jsx";
+import ListsPage from "./pages/ListsPage.jsx";
+
 import { getToken } from "./utils/auth.js";
 
 export default function App() {
@@ -13,22 +18,32 @@ export default function App() {
     <div className="container">
       <Navbar isLoggedIn={isLoggedIn} onChanged={() => setRefreshKey((k) => k + 1)} />
 
-      <div className="grid">
-        <div className="card">
-          <h2>Authentication</h2>
-          <AuthPanel onAuth={() => setRefreshKey((k) => k + 1)} />
-        </div>
+      <Routes>
+        <Route
+          path="/login"
+          element={<LoginPage onAuth={() => setRefreshKey((k) => k + 1)} />}
+        />
 
-        <div className="card">
-          <h2>Course Actions</h2>
-          <CoursePanel refreshKey={refreshKey} />
-        </div>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <DashboardPage refreshKey={refreshKey} />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/lists"
+          element={
+            <ProtectedRoute>
+              <ListsPage refreshKey={refreshKey} />
+            </ProtectedRoute>
+          }
+        />
 
-        <div className="card full">
-          <h2>Lists</h2>
-          <ListsPanel refreshKey={refreshKey} />
-        </div>
-      </div>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </div>
   );
 }
